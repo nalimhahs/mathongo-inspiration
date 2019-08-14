@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import mail from "../assets/images/mail.svg"
 
 const FABWrapper = styled.div`
   position: absolute;
@@ -20,6 +21,9 @@ const FABWrapper = styled.div`
   box-shadow: 2px 3px 15px rgba(0,0,0,0.26), 0 3px 6px rgba(0,0,0,0.23);
   transition:.3s;  
   /* -webkit-tap-highlight-color: rgba(0,0,0,0); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   :hover {
     transform: scale(1.2);
   }
@@ -41,13 +45,16 @@ const Message = styled.div`
   display: flex;
   align-items: center;
 `
+const Img = styled.img`
+  height: 55%;
+`
 
 export default class FAB extends Component {
   render() {
     return (
       <div>
         <FABWrapper>
-          
+          <Img src={mail}/>
         </FABWrapper>
         {/* <Message>
           Drop in your mail to get the best delivered to your inbox daily.

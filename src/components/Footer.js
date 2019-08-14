@@ -8,12 +8,13 @@ const FooterWrapper = styled.footer`
   bottom: 0;
   height: 20%;
   width: 100%;
-  /* background-color: black; */
+  background-color: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
   text-align: center;
+  z-index: -1;
   /* padding: 10px; */
 `;
 
@@ -27,7 +28,7 @@ const Selected = styled.div`
     rgba(0, 212, 255, 1) 100%
   );
   border-radius: 15px;
-  display: flex;
+  display: flex !important;
   justify-content: center;
   align-items: center;
   box-shadow: 0px 8px 24px 0px rgba(115, 115, 115, 0.67);
@@ -43,7 +44,7 @@ const FullWrapper = styled.div`
 `;
 
 const Center = styled.div`
-  display: flex;
+  display: flex !important;
   justify-content: center;
   align-items: center;
 `;

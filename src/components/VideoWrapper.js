@@ -5,12 +5,13 @@ import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";
 
 import styled from "styled-components";
-import QuoteCard from "./QuoteCard";
+import VideoCard from "./VideoCard";
 
 import { gradients } from "../assets/gradients/gradients.js";
-import "../assets/styles/quotes.scss";
 
-const MAX_SLIDES = 5;
+import "../assets/styles/videos.scss";
+
+const MAX_SLIDES = 2;
 
 const Main = styled.div`
   height: 100%;
@@ -26,7 +27,7 @@ const SliderWrapper = styled(Slider)`
   height: 100%;
 `;
 
-export default class QuotesWrapper extends Component {
+export default class VideoWrapper extends Component {
   state = {
     loaded: false,
     index: 0,
@@ -56,8 +57,6 @@ export default class QuotesWrapper extends Component {
           gradient = gradients[rand].colors;
         }
         var pointer = this.state.quotePointer;
-        console.log(this.state.quotePointer);
-        console.log(this.state.quotesBuffer[pointer]);
         var element = {
           index: i,
           quote: this.state.quotesBuffer[pointer],
@@ -132,9 +131,6 @@ export default class QuotesWrapper extends Component {
       rand = Math.floor(Math.random() * gradients.length);
       gradient = gradients[rand].colors;
     }
-    console.log(this.state.quotePointer);
-    console.log(this.state.quotesBuffer[this.state.quotePointer]);
-    console.log("index: " + indexToChange);
     data[indexToChange] = {
       index: indexToChange,
       quote: this.state.quotesBuffer[this.state.quotePointer],
@@ -165,10 +161,7 @@ export default class QuotesWrapper extends Component {
 
   render() {
     var settings = {
-      // className: "center",
-      centerMode: true,
       infinite: true,
-      centerPadding: "150px",
       slidesToShow: 1,
       speed: 700,
       draggable: false,
@@ -186,29 +179,16 @@ export default class QuotesWrapper extends Component {
         {this.state.loaded ? (
           <SliderWrapper {...settings} ref={c => (this.slider = c)}>
             {this.state.quotes.map(quote => {
-              if (this.state.index === quote.index) {
-                return (
-                  <QuoteCard
-                    key={quote.index}
-                    primary={quote.primary}
-                    secondary={quote.secondary}
-                    content={quote.quote}
-                    active={true}
-                    nextCallback={this.handleNext}
-                    className="anim"
-                  />
-                );
-              } else {
-                return (
-                  <QuoteCard
-                    key={quote.index}
-                    primary={quote.primary}
-                    secondary={quote.secondary}
-                    content={quote.quote}
-                    className="anim"
-                  />
-                );
-              }
+              return (
+                <VideoCard
+                  key={quote.index}
+                  primary={quote.primary}
+                  secondary={quote.secondary}
+                  content={quote.quote}
+                  active={true}
+                  nextCallback={this.handleNext}
+                />
+              );
             })}
           </SliderWrapper>
         ) : (
