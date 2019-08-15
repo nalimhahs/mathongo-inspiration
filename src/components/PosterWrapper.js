@@ -211,6 +211,7 @@ export default class PosterWrapper extends Component {
       speed: 700,
       draggable: true,
       easing: "ease",
+      lazyLoad: true,
       nextArrow: <NextArrow callBack={this.next} />,
       prevArrow: <PrevArrow callBack={this.prev} />,
       afterChange: index => {

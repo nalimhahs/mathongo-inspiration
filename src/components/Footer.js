@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
 
 import "../assets/styles/global.scss";
+import "../assets/styles/footer.scss";
 
 const FooterWrapper = styled.footer`
   position: fixed;
@@ -14,8 +17,15 @@ const FooterWrapper = styled.footer`
   align-items: center;
   flex-direction: row;
   text-align: center;
-  z-index: -1;
+  z-index: 2;
+  font-family: Nunito;
+  font-size: 2rem;
+  font-weight: 700;
   /* padding: 10px; */
+`;
+const SliderWrapper = styled(Slider)`
+  width: 100%;
+  height: 100%;
 `;
 
 const Selected = styled.div`
@@ -31,8 +41,7 @@ const Selected = styled.div`
   display: flex !important;
   justify-content: center;
   align-items: center;
-  box-shadow: 0px 8px 24px 0px rgba(115, 115, 115, 0.67);
-  transform: translateY(-14px);
+  /* box-shadow: 0px 8px 24px 0px rgba(115, 115, 115, 0.67); */
 `;
 
 const FullWrapper = styled.div`
@@ -41,6 +50,10 @@ const FullWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .cursor {
+    cursor: pointer;
+  }
 `;
 
 const Center = styled.div`
@@ -50,43 +63,89 @@ const Center = styled.div`
 `;
 
 const Line = styled.div`
-  /* width: 1px;
-  background-color: black;
-  height: 100px;
-  display: inline-block; */
   height: 30%;
   width: 1px;
   border-right: 2px solid gray;
-  /*display: inline-block;*/
-  /*margin: 0 auto;*/
 `;
 
 export default class Footer extends Component {
+  state = {
+    left: "Quotes",
+    main: "Posters",
+    right: "Videos",
+    active_class: "add-shadow",
+    text_class: "text-fade-in"
+  };
+
+  handleChange = clicked => {
+    this.props.callback(clicked);
+    this.setState(
+      { active_class: "rem-shadow", text_class: "text-fade-out" },
+      () => {
+        setTimeout(() => {
+          if (clicked === this.state.left) {
+            this.setState({
+              left: this.state.right,
+              main: this.state.left,
+              right: this.state.main
+            }, () => {
+              // this.props.callback(this.state.main);
+            });
+          } else if (clicked === this.state.right) {
+            this.setState({
+              left: this.state.main,
+              main: this.state.right,
+              right: this.state.left
+            }, () => {
+              // this.props.callback(this.state.main);
+            });
+          }
+          setTimeout(() => {
+            this.setState({
+              active_class: "add-shadow",
+              text_class: "text-fade-in"
+            });
+          }, 400);
+        }, 300);
+      }
+    );
+  };
+
   render() {
     return (
       <>
         <FooterWrapper>
           <FullWrapper className="container">
             <FullWrapper className="columns">
-              <div
-                className="column"
-                style={{ height: 100 + "%" }}
-              >
-                <FullWrapper>Videos</FullWrapper>
+              <div className="column cursor" style={{ height: 100 + "%" }}>
+                <FullWrapper
+                  onClick={() => {
+                    this.handleChange(this.state.left);
+                  }}
+                  className={this.state.text_class}
+                >
+                  {this.state.left}
+                </FullWrapper>
               </div>
               <Line />
               <Center
-                className="column is-two-fifths"
+                className="column is-two-fifths cursor"
                 style={{ height: 100 + "%" }}
               >
-                <Selected>Quotes</Selected>
+                <Selected className={this.state.active_class}>
+                  <span className={this.state.text_class}>{this.state.main}</span>
+                </Selected>
               </Center>
               <Line />
-              <div
-                className="column"
-                style={{ height: 100 + "%" }}
-              >
-                <FullWrapper>Posters</FullWrapper>
+              <div className="column cursor" style={{ height: 100 + "%" }}>
+                <FullWrapper
+                  onClick={() => {
+                    this.handleChange(this.state.right);
+                  }}
+                  className={this.state.text_class}
+                >
+                  {this.state.right}
+                </FullWrapper>
               </div>
             </FullWrapper>
           </FullWrapper>
