@@ -12,7 +12,7 @@ const Wrapper = styled.div`
 `;
 
 export default class MainWrapper extends Component {
-  state = { active: "Posters" };
+  state = { active: "Quotes" };
 
   handleFooterChange = active => {
     this.setState({ active: active });
