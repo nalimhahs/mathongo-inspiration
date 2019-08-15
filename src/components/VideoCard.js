@@ -78,32 +78,6 @@ const NextWarpper = styled.div`
   ${props => (props.active ? "opacity: 1;" : "opacity: 0;")}
 `;
 
-// const PlayIcon = props => (
-//   <>
-//     <svg
-//       style={{ width: 0, height: 0, position: "absolute" }}
-//       aria-hidden="true"
-//       focusable="false"
-//     >
-//       <linearGradient id="play-gradient" x2="1" y2="1">
-//         <stop offset="0%" stopColor={props.primary} />
-//         <stop offset="100%" stopColor={props.secondary} />
-//       </linearGradient>
-//     </svg>
-//     <svg
-//       xmlns="http://www.w3.org/2000/svg"
-//       width="72"
-//       height="72"
-//       viewBox="0 0 72 72"
-//       fill = "url(#play-gradient)"
-//       // style={{ height: 50 + "%"}}
-//     >
-//       <path d="M8 5v14l11-7z"/>
-//       <path d="M0 0h24v24H0z" fill="none" />
-//     </svg>
-//   </>
-// );
-
 const PlayWrapper = styled.div`
   height: 55%;
   width: 100%;

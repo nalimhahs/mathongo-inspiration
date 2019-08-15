@@ -76,11 +76,11 @@ const Img = styled.img`
 const CardFooter = styled.div`
   position: absolute;
   bottom: 0;
-  width: 82%;
+  width: 100%;
   height: 15%;
-  padding: 0 40px;
+  padding: 0px 40px;
   font-family: Nunito;
-  font-size: .8rem;
+  font-size: 0.8rem;
 `;
 
 const Icons = styled.div`
@@ -129,7 +129,7 @@ export default class QuoteCard extends Component {
           className="anim"
         >
           <ContentWrapper className="columns">
-            <div className="column is-10">
+            <div className="column is-10" style={{position: "relative"}}>
               <Quote active={this.props.active} size={size}>
                 {this.props.content.body}
               </Quote>

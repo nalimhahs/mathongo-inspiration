@@ -9,7 +9,7 @@ import "../assets/styles/footer.scss";
 const FooterWrapper = styled.footer`
   position: fixed;
   bottom: 0;
-  height: 20%;
+  height: 19%;
   width: 100%;
   background-color: transparent;
   display: flex;
@@ -22,10 +22,6 @@ const FooterWrapper = styled.footer`
   font-size: 2rem;
   font-weight: 700;
   /* padding: 10px; */
-`;
-const SliderWrapper = styled(Slider)`
-  width: 100%;
-  height: 100%;
 `;
 
 const Selected = styled.div`
