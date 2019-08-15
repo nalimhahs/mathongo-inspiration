@@ -36,6 +36,7 @@ const Div = styled.div`
   height: 100%;
   width: 100%;
 `;
+
 const Wrapper = styled.div`
   height: 100%;
   width: 100%;
@@ -51,11 +52,6 @@ const Card = styled.div`
   border-radius: 15px;
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.1), 0 5px 50px rgba(0, 0, 0, 0.1);
   padding: 30px 40px;
-  h1 {
-    font-family: Nunito;
-    font-size: 3rem;
-    font-weight: 600;
-  }
 
   p {
     /* padding-top: 10px; */
@@ -70,7 +66,17 @@ const Card = styled.div`
     padding-top: 30px;
     font-size: 0.9rem;
     color: #999999;
+    position: absolute;
+    bottom: 29%;
+    width: 100%;
+    left: 0;
   }
+`;
+
+const P = styled.p`
+  font-family: Nunito;
+  font-size: ${props => props.size} !important;
+  padding: 10px 5px;
 `;
 
 const CardFooter = styled.div`
@@ -96,6 +102,12 @@ const Icon = styled.div`
     margin-top: 5px;
     font-family: Nunito;
   }
+`;
+
+const H1 = styled.h1`
+  font-family: Nunito;
+  font-size: ${props => props.size};
+  font-weight: 600;
 `;
 
 const Prev = styled.div`
@@ -177,6 +189,22 @@ export default class PosterWrapper extends Component {
     this.slider.slickPrev();
   };
 
+  getFontSize = (text, mult = 20, min = 2, max = 2.75) => {
+    const MAX_SIZE = max;
+    const MIN_LEN = min;
+    var len = text.split(" ").length;
+    if (len < MIN_LEN) {
+      return MAX_SIZE + "rem";
+    } else {
+      var len = (1 - (mult * (len - MIN_LEN)) / 100) * MAX_SIZE;
+      // if (len < 1) {
+      //   console.log(len)
+      //   return "1rem";
+      // }
+      return len + "rem";
+    }
+  };
+
   render() {
     var settings = {
       infinite: true,
@@ -205,8 +233,12 @@ export default class PosterWrapper extends Component {
               </Wrapper>
               <Wrapper className="column is-5">
                 <Card>
-                  <h1>{this.state.currentPoster.title}</h1>
-                  <p>{this.state.currentPoster.desc}</p>
+                  <H1 size={this.getFontSize(this.state.currentPoster.title)}>
+                    {this.state.currentPoster.title}
+                  </H1>
+                  <P size={this.getFontSize(this.state.currentPoster.desc, 2, 20, 1)}>
+                    {this.state.currentPoster.desc}
+                  </P>
                   <h6>
                     Inspired {this.state.currentPoster.seen} students today.
                   </h6>
