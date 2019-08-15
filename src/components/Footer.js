@@ -66,8 +66,8 @@ const Line = styled.div`
 
 export default class Footer extends Component {
   state = {
-    left: "Quotes",
-    main: "Posters",
+    left: "Posters",
+    main: "Quotes",
     right: "Videos",
     active_class: "add-shadow",
     text_class: "text-fade-in"

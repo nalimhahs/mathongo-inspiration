@@ -16,7 +16,6 @@ export default class MainWrapper extends Component {
 
   handleFooterChange = active => {
     this.setState({ active: active });
-    console.log(this.state.active);
   };
 
   getComponent = () => {
@@ -38,7 +37,7 @@ export default class MainWrapper extends Component {
         <Wrapper>
           {this.getComponent()}
         </Wrapper>
-        <Footer callback={this.handleFooterChange} />
+        <Footer callback={this.handleFooterChange} default={this.state.active}/>
       </>
     );
   }
