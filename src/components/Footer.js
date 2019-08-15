@@ -9,7 +9,7 @@ import "../assets/styles/footer.scss";
 const FooterWrapper = styled.footer`
   position: fixed;
   bottom: 0;
-  height: 19%;
+  height: 17%;
   width: 100%;
   background-color: transparent;
   display: flex;
@@ -26,7 +26,7 @@ const FooterWrapper = styled.footer`
 
 const Selected = styled.div`
   width: 60%;
-  height: 60%;
+  height: 70%;
   background: rgb(21, 137, 238);
   background: linear-gradient(
     15deg,
