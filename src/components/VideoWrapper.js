@@ -40,7 +40,6 @@ export default class VideoWrapper extends Component {
     axios
       .get("https://api.sheety.co/34d217ea-b298-4e0c-a05f-dbe677522ea9")
       .then(response => {
-        console.log(response.data);
         var len = gradients.length;
         var data = [];
 

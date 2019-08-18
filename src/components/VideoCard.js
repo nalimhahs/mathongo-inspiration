@@ -143,9 +143,7 @@ export default class VideoCard extends Component {
         }
       })
       .then(response => {
-        this.setState({ data: response.data }, () => {
-          console.log(this.state.data);
-        });
+        this.setState({ data: response.data });
       });
   };
 
@@ -159,7 +157,6 @@ export default class VideoCard extends Component {
 
   handlePlay = () => {
     this.props.handlePlay(this.props.vidId);
-    console.log(window.location.origin.toString());
   };
 
   render() {
