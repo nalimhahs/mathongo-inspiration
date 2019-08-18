@@ -3,7 +3,7 @@ import styled from "styled-components";
 import axios from "axios";
 
 import PlayIcon from "../assets/images/play.svg";
-import ShareIcon from "../assets/images/share.svg";
+import ShareIcon from "../assets/images/share-w.svg";
 
 const CardWrapper = styled.div`
   width: 65%;
@@ -14,17 +14,26 @@ const CardWrapper = styled.div`
     ${props => (props.primary ? props.primary : "#42275a")},
     ${props => (props.secondary ? props.secondary : "#734b6d")}
   );
+  background: url(${props => props.bg});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   border-radius: 20px;
   margin: 0 auto;
   ${props =>
     props.active
       ? "animation: shadow-drop-center 0.3s cubic-bezier(0.445, 0.050, 0.550, 0.950) both;"
       : "animation: rev-shadow-drop-center 0.4s cubic-bezier(0.445, 0.050, 0.550, 0.950) both;"}
+  color: #d1d1d1;
 `;
 
 const ContentWrapper = styled.div`
   height: 100%;
   margin: auto;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px); 
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
 `;
 
 const TitleWrapper = styled.div`
@@ -37,6 +46,8 @@ const TitleWrapper = styled.div`
   );
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.26), 0 5px 50px rgba(0, 0, 0, 0.23);
   margin: 5px 10px;
+  color: #4e4e4e;
+  padding-bottom: 10px;
 `;
 
 const Heading = styled.div`
@@ -72,9 +83,11 @@ const NextWarpper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* padding-right: 50px; */
+  font-family: "Nunito";
+  font-size: 1.1rem;
   transition: opacity 0.2s ease-out;
   ${props => (props.active ? "opacity: 1;" : "opacity: 0;")}
+  cursor: pointer;
 `;
 
 const PlayWrapper = styled.div`
@@ -88,13 +101,16 @@ const PlayWrapper = styled.div`
 const Img = styled.img`
   height: ${props => (props.h ? props.h + "%" : "35%")};
   cursor: pointer;
+  transition: 0.2s linear;
   :hover {
     transform: scale(1.2);
   }
 `;
 
 const CardFooter = styled.div`
-  width: 100%;
+  position: fixed;
+  bottom: 20px;
+  width: 52vw;
   height: 15%;
   padding: 0 40px;
   font-family: Nunito;
@@ -102,6 +118,7 @@ const CardFooter = styled.div`
 
 const Icons = styled.div`
   float: right;
+  transform: translateY(-7px);
 `;
 
 const Icon = styled.div`
@@ -121,13 +138,12 @@ export default class VideoCard extends Component {
     axios
       .get("http://noembed.com/embed", {
         params: {
-          url: "https://youtube.com/watch?v=" + this.props.vidId,
+          url: "https://youtube.com/watch?v=" + this.props.vidId
         }
       })
       .then(response => {
-        
-        this.setState({ data: response.data }, ()=>{
-          console.log(this.state.data)
+        this.setState({ data: response.data }, () => {
+          console.log(this.state.data);
         });
       });
   };
@@ -150,6 +166,7 @@ export default class VideoCard extends Component {
           primary={this.props.primary}
           secondary={this.props.secondary}
           active={this.props.active}
+          bg={this.state.data.thumbnail_url}
         >
           <ContentWrapper className="columns">
             <div className="column is-10">
