@@ -137,7 +137,7 @@ export default class VideoCard extends Component {
 
   componentDidMount = () => {
     axios
-      .get("http://noembed.com/embed", {
+      .get("https://noembed.com/embed", {
         params: {
           url: "https://youtube.com/watch?v=" + this.props.vidId
         }
