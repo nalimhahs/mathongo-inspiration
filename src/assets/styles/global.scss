@@ -18,6 +18,9 @@ $navbar-padding-vertical: 0.65rem;
 @import "node_modules/bulma/sass/grid/_all.sass";
 @import "node_modules/bulma/sass/elements/container.sass";
 @import "node_modules/bulma/sass/components/navbar.sass";
+@import "node_modules/bulma/sass/components/modal.sass";
+@import "node_modules/bulma/sass/form/_all.sass";
+@import "node_modules/bulma/sass/elements/button.sass";
 
 
 html {
@@ -30,4 +33,10 @@ html {
 body,
 #root {
   height: 100%;
+}
+
+.box{
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px 30px;
 }
