@@ -56,8 +56,6 @@ export default class QuotesWrapper extends Component {
           gradient = gradients[rand].colors;
         }
         var pointer = this.state.quotePointer;
-        console.log(this.state.quotePointer);
-        console.log(this.state.quotesBuffer[pointer]);
         var element = {
           index: i,
           quote: this.state.quotesBuffer[pointer],
@@ -132,9 +130,6 @@ export default class QuotesWrapper extends Component {
       rand = Math.floor(Math.random() * gradients.length);
       gradient = gradients[rand].colors;
     }
-    console.log(this.state.quotePointer);
-    console.log(this.state.quotesBuffer[this.state.quotePointer]);
-    console.log("index: " + indexToChange);
     data[indexToChange] = {
       index: indexToChange,
       quote: this.state.quotesBuffer[this.state.quotePointer],
