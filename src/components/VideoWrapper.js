@@ -28,7 +28,8 @@ const SliderWrapper = styled(Slider)`
 export default class VideoWrapper extends Component {
   state = {
     loaded: false,
-    data: []
+    data: [],
+    isModalActive: false
   };
 
   componentWillMount = () => {
@@ -92,6 +93,14 @@ export default class VideoWrapper extends Component {
     this.slider.slickNext();
   };
 
+  handleVideoClose = () => {
+    this.setState({ isModalActive: false, currentVidID: null });
+  };
+
+  handlePlay = vidId => {
+    this.setState({ currentVidID: vidId, isModalActive: true });
+  };
+
   render() {
     var settings = {
       infinite: true,
@@ -100,7 +109,7 @@ export default class VideoWrapper extends Component {
       draggable: false,
       easing: "ease",
       arrows: false,
-      accessibility: false,
+      accessibility: false
       // fade: true
     };
 
@@ -118,6 +127,7 @@ export default class VideoWrapper extends Component {
                   nextCallback={this.handleNext}
                   inspCount={video.inspCount}
                   vidId={video.vidId}
+                  handlePlay={this.handlePlay}
                 />
               );
             })}
@@ -125,6 +135,30 @@ export default class VideoWrapper extends Component {
         ) : (
           "Loading..."
         )}
+        <div className={this.state.isModalActive ? "modal is-active" : "modal"}>
+          <div className="modal-background" onClick={this.handleVideoClose} />
+          <div className="modal-content">
+            <iframe
+              width="100000"
+              height="100000"
+              src={
+                "https://www.youtube.com/embed/" +
+                this.state.currentVidID +
+                "?autoplay=1&origin=" +
+                window.location.origin.toString()
+              }
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              style={{height: "100%"}}
+            />
+          </div>
+          <button
+            className="modal-close is-large"
+            aria-label="close"
+            onClick={this.handleVideoClose}
+          />
+        </div>
       </Main>
     );
   }

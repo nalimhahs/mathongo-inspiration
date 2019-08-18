@@ -31,7 +31,7 @@ const ContentWrapper = styled.div`
   height: 100%;
   margin: auto;
   backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px); 
+  -webkit-backdrop-filter: blur(5px);
   border-radius: 20px;
   background-color: rgba(0, 0, 0, 0.5);
 `;
@@ -131,7 +131,8 @@ const Icon = styled.div`
 
 export default class VideoCard extends Component {
   state = {
-    data: {}
+    data: {},
+    isModalActive: false
   };
 
   componentDidMount = () => {
@@ -148,6 +149,8 @@ export default class VideoCard extends Component {
       });
   };
 
+  
+
   handleNext = () => {
     if (this.props.active) {
       this.props.nextCallback();
@@ -155,7 +158,8 @@ export default class VideoCard extends Component {
   };
 
   handlePlay = () => {
-    console.log("clicked");
+    this.props.handlePlay(this.props.vidId);
+    console.log(window.location.origin.toString());
   };
 
   render() {

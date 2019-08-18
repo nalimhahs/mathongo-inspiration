@@ -1,4 +1,4 @@
-// @import './global.scss'; 
+// @import './global.scss';
 
 .slick-list {
   // padding: 0 10px 0 0 !important;
@@ -12,7 +12,7 @@
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
   }
   100% {
-    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.26), 0 5px 50px rgba(0,0,0,0.23);
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.26), 0 5px 50px rgba(0, 0, 0, 0.23);
   }
 }
 @keyframes shadow-drop-center {
@@ -20,13 +20,13 @@
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
   }
   100% {
-    box-shadow: 0px 3px 15px rgba(0,0,0,0.26), 0 5px 50px rgba(0,0,0,0.23);
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.26), 0 5px 50px rgba(0, 0, 0, 0.23);
   }
 }
 
 @-webkit-keyframes rev-shadow-drop-center {
   0% {
-    box-shadow: 0px 3px 15px rgba(0,0,0,0.26), 0 5px 50px rgba(0,0,0,0.23);
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.26), 0 5px 50px rgba(0, 0, 0, 0.23);
   }
   100% {
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
@@ -34,7 +34,7 @@
 }
 @keyframes rev-shadow-drop-center {
   0% {
-    box-shadow: 0px 3px 15px rgba(0,0,0,0.26), 0 5px 50px rgba(0,0,0,0.23);
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.26), 0 5px 50px rgba(0, 0, 0, 0.23);
   }
   100% {
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
@@ -43,7 +43,7 @@
 
 .slick-center {
   padding: 0 120px;
-  // -webkit-animation: scale-up-center 1s ease-in-out both !important; 
+  // -webkit-animation: scale-up-center 1s ease-in-out both !important;
   // animation: scale-up-center 1s ease-in-out both !important;
 }
 
@@ -53,12 +53,16 @@
   height: 100%;
 }
 
-.slick-slide{
-  // animation: scale-down-center .5s ease-in-out both;
-}
-
 .slick-slide > div:first-of-type {
   height: 100%;
   display: flex;
   align-items: center;
+}
+
+.modal-content {
+  height: 50%;
+  div {
+    height: 100%;
+  }
+  overflow-y: hidden;
 }
