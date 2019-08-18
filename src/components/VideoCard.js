@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 import PlayIcon from "../assets/images/play.svg";
 import ShareIcon from "../assets/images/share.svg";
@@ -28,7 +29,6 @@ const ContentWrapper = styled.div`
 
 const TitleWrapper = styled.div`
   width: 65%;
-  height: 30%;
   border-radius: 25px;
   background: linear-gradient(
     ${props => (props.angle ? props.angle : "to right")},
@@ -42,10 +42,9 @@ const TitleWrapper = styled.div`
 const Heading = styled.div`
   padding: 28px 40px;
   font-family: "Nunito";
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 600;
   line-height: 1;
-  /* width: 90%; */
   padding-bottom: 0px;
 `;
 
@@ -89,7 +88,7 @@ const PlayWrapper = styled.div`
 const Img = styled.img`
   height: ${props => (props.h ? props.h + "%" : "35%")};
   cursor: pointer;
-  :hover{
+  :hover {
     transform: scale(1.2);
   }
 `;
@@ -103,7 +102,7 @@ const CardFooter = styled.div`
 
 const Icons = styled.div`
   float: right;
-`
+`;
 
 const Icon = styled.div`
   display: flex;
@@ -111,10 +110,28 @@ const Icon = styled.div`
   font-size: 0.6rem;
   transform: translateY(20);
   transform: scale(1.3);
-
-`
+`;
 
 export default class VideoCard extends Component {
+  state = {
+    data: {}
+  };
+
+  componentDidMount = () => {
+    axios
+      .get("http://noembed.com/embed", {
+        params: {
+          url: "https://youtube.com/watch?v=" + this.props.vidId,
+        }
+      })
+      .then(response => {
+        
+        this.setState({ data: response.data }, ()=>{
+          console.log(this.state.data)
+        });
+      });
+  };
+
   handleNext = () => {
     if (this.props.active) {
       this.props.nextCallback();
@@ -123,7 +140,7 @@ export default class VideoCard extends Component {
 
   handlePlay = () => {
     console.log("clicked");
-  }
+  };
 
   render() {
     return (
@@ -141,26 +158,26 @@ export default class VideoCard extends Component {
                 primary={this.props.primary}
                 secondary={this.props.secondary}
               >
-                <Heading>Inspirational Video</Heading>
+                <Heading>{this.state.data.title}</Heading>
                 <Author>
                   <hr />
-                  {this.props.content.author}
+                  {this.state.data.author_name}
                 </Author>
               </TitleWrapper>
               <PlayWrapper
                 primary={this.props.primary}
                 secondary={this.props.secondary}
               >
-                <Img src={PlayIcon} onClick={this.handlePlay}/>
+                <Img src={PlayIcon} onClick={this.handlePlay} />
               </PlayWrapper>
               <CardFooter>
-                Inspired {this.props.inspCount? this.props.inspCount : "10K"} students today.
+                Inspired {this.props.inspCount ? this.props.inspCount : "-"}{" "}
+                students today.
                 <Icons>
                   <Icon>
-                  <Img src={ShareIcon} h="100"/>
-                  Share
+                    <Img src={ShareIcon} h="100" />
+                    Share
                   </Icon>
-                  
                 </Icons>
               </CardFooter>
             </div>

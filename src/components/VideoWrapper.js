@@ -11,8 +11,6 @@ import { gradients } from "../assets/gradients/gradients.js";
 
 import "../assets/styles/videos.scss";
 
-const MAX_SLIDES = 2;
-
 const Main = styled.div`
   height: 100%;
   width: 100%;
@@ -30,71 +28,46 @@ const SliderWrapper = styled(Slider)`
 export default class VideoWrapper extends Component {
   state = {
     loaded: false,
-    index: 0,
-    quotes: [],
-    quotesBuffer: [],
-    page: 1,
-    quotePointer: 0
+    data: []
   };
-
-  instance = axios.create({
-    baseURL: "https://favqs.com/api/",
-    headers: {
-      Authorization: 'Token token="efd17e3873ee2ed832507cf4260d3c7a"'
-    }
-  });
 
   componentWillMount = () => {
-    this.getQuotes().then(() => {
-      var len = gradients.length;
-      var data = [];
-      for (let i = 0; i < MAX_SLIDES; i++) {
-        var rand = Math.floor(Math.random() * len);
-        var gradient = gradients[rand].colors;
-
-        while (!this.checkIfLight(gradient)) {
-          rand = Math.floor(Math.random() * len);
-          gradient = gradients[rand].colors;
-        }
-        var pointer = this.state.quotePointer;
-        var element = {
-          index: i,
-          quote: this.state.quotesBuffer[pointer],
-          views: "",
-          shareLink: "",
-          primary: gradient[0],
-          secondary: gradient[1],
-          angle: ""
-        };
-        data.push(element);
-        this.setState({ quotePointer: this.state.quotePointer + 1 });
-      }
-      this.setState({ quotes: data }, () => {
-        this.setState({ loaded: true });
-      });
-    });
+    this.getVideos();
   };
 
-  getQuotes = () => {
-    var promise = this.instance
-      .get("quotes/", {
-        params: {
-          page: this.state.page
-        }
-      })
+  getVideos = () => {
+    axios
+      .get("https://api.sheety.co/34d217ea-b298-4e0c-a05f-dbe677522ea9")
       .then(response => {
-        this.setState({
-          quotesBuffer: this.state.quotesBuffer.concat(response.data.quotes),
-          page: this.state.page + 1
-        });
+        console.log(response.data);
+        var len = gradients.length;
+        var data = [];
+
+        for (let i = 0; i < response.data.length; i++) {
+          var rand = Math.floor(Math.random() * len);
+          var gradient = gradients[rand].colors;
+
+          while (!this.checkIfLight(gradient)) {
+            rand = Math.floor(Math.random() * len);
+            gradient = gradients[rand].colors;
+          }
+
+          var element = {
+            index: i,
+            vidId: response.data[i].vid_id,
+            inspCount: response.data[i].insp_count,
+            primary: gradient[0],
+            secondary: gradient[1],
+            angle: ""
+          };
+
+          data.push(element);
+        }
+        this.setState({ data: data, loaded: true });
       })
       .catch(function(error) {
         console.log(error);
-      })
-      .then(function() {
-        // always executed
       });
-    return promise;
   };
 
   checkIfLight = gradient => {
@@ -115,46 +88,6 @@ export default class VideoWrapper extends Component {
     return true;
   };
 
-  handleChange = index => {
-    var data = this.state.quotes;
-    // var indexToChange = index - Math.floor(MAX_SLIDES / 2);
-    var indexToChange = (this.state.quotePointer % MAX_SLIDES) - 2;
-
-    if (indexToChange < 0) {
-      indexToChange = MAX_SLIDES + indexToChange;
-    }
-
-    var rand = Math.floor(Math.random() * gradients.length);
-    var gradient = gradients[rand].colors;
-
-    while (!this.checkIfLight(gradient)) {
-      rand = Math.floor(Math.random() * gradients.length);
-      gradient = gradients[rand].colors;
-    }
-    data[indexToChange] = {
-      index: indexToChange,
-      quote: this.state.quotesBuffer[this.state.quotePointer],
-      views: "",
-      shareLink: "",
-      primary: gradient[0],
-      secondary: gradient[1],
-      angle: ""
-    };
-    this.setState(
-      { quotes: data, quotePointer: this.state.quotePointer + 1 },
-      () => {
-        if (this.state.index === MAX_SLIDES - 1) {
-          this.setState({ index: 0 });
-        } else {
-          this.setState({ index: this.state.index + 1 });
-        }
-        if (this.state.quotePointer >= 0.8 * this.state.quotePointer) {
-          this.getQuotes();
-        }
-      }
-    );
-  };
-
   handleNext = () => {
     this.slider.slickNext();
   };
@@ -168,9 +101,6 @@ export default class VideoWrapper extends Component {
       easing: "ease",
       arrows: false,
       accessibility: false,
-      afterChange: index => {
-        this.handleChange(index);
-      }
       // fade: true
     };
 
@@ -178,15 +108,16 @@ export default class VideoWrapper extends Component {
       <Main>
         {this.state.loaded ? (
           <SliderWrapper {...settings} ref={c => (this.slider = c)}>
-            {this.state.quotes.map(quote => {
+            {this.state.data.map(video => {
               return (
                 <VideoCard
-                  key={quote.index}
-                  primary={quote.primary}
-                  secondary={quote.secondary}
-                  content={quote.quote}
+                  key={video.index}
+                  primary={video.primary}
+                  secondary={video.secondary}
                   active={true}
                   nextCallback={this.handleNext}
+                  inspCount={video.inspCount}
+                  vidId={video.vidId}
                 />
               );
             })}
